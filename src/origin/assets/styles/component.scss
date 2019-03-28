@@ -1,0 +1,232 @@
+
+//메뉴 아이콘
+$nav-icon :
+    (all,0,0),
+    (states,0,-30),
+    (scroll,0,-60),
+    (splash,0,-90),
+    (page,0,-120),
+    (flow,0,-150),
+    (banner,0,-180),
+    (animation,0,-210),
+    (component,0,-240),
+    (navigation,0,-270),
+    (reference,0,-300),
+    (etc,0,-330);
+//메뉴 아이콘
+$tool-icon :
+    (framer,0,0),
+    (framerx,0,-30),
+    (lottie,0,-60),
+    (principle,0,-90),
+    (sketch,0,-120),
+    (HTML,0,-150);
+
+
+/* 메뉴 */
+.nav-wrap {
+  .nav-icon {
+    display:inline-block;
+    width:25px;
+    height:25px;
+    margin-right:13px;
+    background:url('../images/nav-comm.png') no-repeat;
+    background-size:85px 355px;
+    vertical-align:top;
+  }
+}
+@each $iconName,$iconPositionX,$iconPositionY in $nav-icon {
+  .nav-wrap {
+    .icon-#{$iconName} {
+      background-position:$iconPositionX+px $iconPositionY+px ;
+    }
+    .link-nav:hover {
+      .icon-#{$iconName} {
+        background-position:($iconPositionX - 30)+px $iconPositionY + px;
+      }
+    }
+    .on {
+      .link-nav {
+        .icon-#{$iconName} {
+          background-position:-($iconPositionX+60)+px $iconPositionY + px;
+        }
+      }
+    }
+  }
+}
+
+//tool 메뉴
+.tools-icon {
+  display:inline-block;
+  width:24px;
+  height:24px;
+  margin-right:21px;
+  background:url('../images/tool-comm.png') no-repeat;
+  background-size:25px 175px;
+  vertical-align:top;
+}
+
+@each $toolName,$toolPositionX,$toolPositionY in $tool-icon {
+  .#{$toolName} {
+    background-position:$toolPositionX+px $toolPositionY+px ;
+  }
+}
+
+
+
+
+//태그 모듈
+.link-tag {
+  display:block;
+  padding:0 12px;
+  font-size:10px;
+  line-height:22px;
+  color:$gray20;
+  border:1px solid $gray20;
+  box-sizing:border-box;
+  border-radius:22px;
+  transition:all .15s;
+  &:hover {
+    color:$secondary;
+    border-color:$secondary;
+    text-decoration: none;
+  }
+  &:active,&.on-tag {
+    background:$secondary;
+    border-color:$secondary;
+    color:#fff;
+    transition:none;
+  }
+}
+
+
+@keyframes hoverAnimation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(.96);
+    transform: scale(.96)
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1)
+  }
+}
+
+
+@keyframes show-in {
+  from {opacity:0;transform:translateY(5px)}
+  to {opacity:1;transform:translateY(0px)}
+}
+
+//모달 레이어
+.modal {
+  background:#FFF;
+  animation-duration: .15s;
+  animation-name: show-in;
+  animation-timing-function :ease-in-out;
+  .modal-cont {
+    position:relative;
+    width:1050px;
+    margin:0 auto;
+    padding-left:100px;
+    box-sizing:border-box;
+  }
+  .text-cate {
+    display:block;
+    @include font-style-item(block,16px,22px,$primary,bold);
+  }
+  .title {
+    overflow:hidden;
+    .title-item {
+      @include head-lv1;
+      line-height:44px;
+      display:inline-block;
+      vertical-align:top;
+      margin-right:10px;
+    }
+    .wrap-tag {
+      display:inline-block;
+      vertical-align:top;
+      margin-top:11px;
+      > li {
+        display:inline-block;
+        vertical-align:top;
+        margin-right:2px;
+      }
+    }
+  }
+  .text-desc {
+    word-break: keep-all;
+    @include font-style-item(block,11px,14px,$gray80,normal);
+    margin-top:7px;
+  }
+  .text-type {
+    @include font-style-item(block,11px,14px,$gray40,normal);
+    margin-top:10px;
+  }
+  .detail-cont {
+    overflow:hidden;
+    width:950px;
+    padding-top:35px;
+    .detail-phone {
+      float:left;
+      width:355px;
+      .bg-phone {
+        display:block;
+        width:355px;
+        height:743px;
+        padding-top:85px;
+        box-sizing:border-box;
+        background:url('../images/body@3x.png') no-repeat;
+        background-position:50% 0;
+        background-size:355px 743px;
+      }
+      .box-gif {
+        display:block;
+        width:322px;
+        height:572px;
+        margin:0 auto;
+        background-size:cover;
+        background-position:50%;
+        background-repeat:no-repeat;
+      }
+    }
+    .detail-code {
+      float:right;
+      width:560px;
+    }
+    .link-example {
+      margin-top:37px;
+      text-align:center;
+      @include font-style-item(inline-block,10px,14px,$gray45,normal);
+      display:block;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .link-close {
+    overflow:hidden;
+    position:absolute;
+    top:0;
+    left:0;
+    width:49px;
+    height:17px;
+    padding:15px;
+    text-align:right;
+    > img {
+      display:inline-block;
+      text-align:right;
+      width:44px;
+      height:17px;
+      transition:.15s ease-in-out;
+    }
+    &:hover {
+      >img {
+        width:49px;
+      }
+    }
+  }
+}

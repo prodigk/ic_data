@@ -1,0 +1,55 @@
+//color palette
+
+$primary : #0021ff;
+$secondary : #7148e9;
+$ink : #000;
+$gray90 : #333;
+$gray80 : #4a4a4a;
+$gray45 : #9b9b9b;
+$gray40 : #b3b3b3;
+$gray20 : #eee;
+
+
+
+// text catalog
+
+@mixin font-style($fontSize,$lineHeight,$fontWeight,$color,$letterSpacing) {
+  font-size:$fontSize;
+  line-height:$lineHeight;
+  font-weight:$fontWeight;
+  color: $color;
+  letter-spacing:$letterSpacing;
+}
+
+@mixin head-lv1 {
+  @include font-style(32px,36px,700,$ink,0)
+}
+@mixin head-lv2 {
+  @include font-style(24px,28px,700,$ink,-0.17px)
+}
+@mixin head-lv3__heavy {
+  @include font-style(16px,20px,bold,$gray80,0)
+}
+@mixin head-lv3 {
+  @include font-style(16px,20px,normal,$gray40,-0.11px)
+}
+@mixin head-lv4 {
+  @include font-style(13px,17px,700,$primary,0)
+}
+@mixin head-lv5 {
+  @include font-style(12px,16px,normal,$gray40,0)
+}
+@mixin text-body {
+  @include font-style(11px,14px,normal,$gray80,0)
+}
+@mixin text-caption {
+  @include font-style(10px,14px,normal,$gray45,0)
+}
+
+@mixin font-style-item($display,$fontSize,$lineHeight,$color,$fontWeight){
+  display:$display;
+  font-size:$fontSize;
+  font-weight:$fontWeight;
+  line-height:$lineHeight;
+  color:$color;
+}
