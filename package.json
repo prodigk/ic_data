@@ -38,7 +38,7 @@
     "image-webpack-loader": "^4.6.0",
     "node-sass": "^4.9.2",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
-    "postcss": "^7.0.13",
+    "postcss": "^8.2.10",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.22.1",
