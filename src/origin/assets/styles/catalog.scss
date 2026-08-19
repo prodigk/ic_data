@@ -1,7 +1,5 @@
 @charset "utf-8";
-@import "font";
-@import "reset";
-@import "var";
-@import "service";
-@import "component";
-
+@use "font";
+@use "reset";
+@use "service";
+@use "component";

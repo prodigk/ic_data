@@ -24,7 +24,7 @@
       <div class="view-item" data-tool="framer" id="framer">
         <div class="list-item">
           <h3 class="title-sub">Framer Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in framerItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(framerItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -52,7 +52,7 @@
       <div class="view-item" data-tool="framerX" id="framerx">
         <div class="list-item">
           <h3 class="title-sub">FramerX Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in framerXItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(framerXItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -80,7 +80,7 @@
       <div class="view-item" data-tool="lottie" id="lottie">
         <div class="list-item">
           <h3 class="title-sub">Lottie Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in lottieItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(lottieItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -108,7 +108,7 @@
       <div class="view-item" data-tool="principle" id="principle">
         <div class="list-item">
           <h3 class="title-sub">Principle Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in principleItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(principleItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -136,7 +136,7 @@
       <div class="view-item" data-tool="sketch" id="sketch">
         <div class="list-item">
           <h3 class="title-sub">Sketch Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in sketchItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(sketchItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -164,7 +164,7 @@
       <div class="view-item" data-tool="html" id="html">
         <div class="list-item">
           <h3 class="title-sub">HTML Interactions<span class="none-text">목록이 없습니다.</span></h3>
-          <div class="item" v-for="(tools, index) in htmlItem" :key="index" v-if="tools.title.includes(searchItem) || tools.tag.includes(searchItem)">
+          <div class="item" v-for="(tools, index) in filterItems(htmlItem)" :key="index">
             <a href="javascript:void(0)" class="link-thumb" v-on:click="dataTarget(tools)">
               <span class="bg-phone">
                 <span class="box-gif" v-bind:style="{ 'background-image': 'url(' + tools.gifImg + ')' }">
@@ -247,6 +247,9 @@
         BUS.$on('toolsBus', this.receiveTools)
       },
       methods : {
+        filterItems(items) {
+          return items.filter(tools => tools.title.includes(this.searchItem) || tools.tag.includes(this.searchItem))
+        },
         resetList() {
           this.framerItem=itemList.item.framer,
           this.framerXItem=itemList.item.framerX,
