@@ -2,11 +2,10 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const extractTextPlugin = require('extract-text-webpack-plugin');
-const htmlWebpackPlugin = require('html-webpack-plugin');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
-const optimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const rootPaths = {
   entry: path.resolve(__dirname, 'src/origin'),
   output: path.resolve(__dirname, 'docs')
@@ -31,7 +30,7 @@ let entryHtmlFiles = (() => {
   let resultList = fileList;
 
   resultList.forEach( (file, index, fileList) => {
-    fileList[index] = (new htmlWebpackPlugin({
+    fileList[index] = (new HtmlWebpackPlugin({
       filename: file,
       template: `${rootPaths.entry}/${file}`
     }));
@@ -41,51 +40,36 @@ let entryHtmlFiles = (() => {
 })();
 
 
-module.exports = env => {
+module.exports = (env = {}) => {
   const isProd = (env.NODE_ENV == 'prod');
 
   return {
     entry: {
       index: path.resolve(entryPaths.index)
     },
-    devtool: isProd ? '' : 'inline-source-map',
+    devtool: isProd ? false : 'inline-source-map',
     output: {
       path: rootPaths.output,
       publicPath: (isProd) ? cdnPath : '/',
       filename: outputPaths.modules + `/[name].js`,
+      clean: true,
     },
-    mode: 'none',
     module: {
       rules: [
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              'scss': [
-                'vue-style-loader',
-                'css-loader',
-                'sass-loader'
-              ],
-              'sass': [
-                'vue-style-loader',
-                'css-loader',
-                'sass-loader?indentedSyntax'
-              ]
-            }
-          }
+          loader: 'vue-loader'
         },
         {
           test: /\.js?$/,
           loader: 'babel-loader',
-          include: [ entryPaths.modules ],
-          exclude: '/node_modules/',
+          include: [ rootPaths.entry ],
+          exclude: /node_modules/,
           options: {
             presets: [
               [
                 '@babel/preset-env', {
-                targets: { node: 'current' }, // 노드일 경우만
-                modules: 'false'
+                modules: false
               }
               ]
             ],
@@ -93,42 +77,15 @@ module.exports = env => {
         },
         {
           test: /\.(ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                emitFile: true,
-                outputPath: (url, resourcePath, context) => resourcePath.slice(resourcePath.indexOf('assets'), resourcePath.length),
-                name: '[name].[ext]',
-              }
-            },
-            {
-              loader: 'image-webpack-loader',		// image-optimize(상세 값은 추후적용)
-              options: {
-                disable: (!isProd),
-                mozjpeg: {		// https://github.com/imagemin/imagemin-mozjpeg
-                  progressive: true,	// progressive 사용 여부 논의(저해상도 우선 출력 되는 방식)
-                  quality: 70
-                },
-                optipng: {		// https://github.com/imagemin/imagemin-optipng
-                  enabled: true,
-                },
-                pngquant: {		// https://github.com/imagemin/imagemin-pngquant
-                  quality: '65-90',
-                  speed: 4
-                },
-                gifsicle: {		// https://github.com/imagemin/imagemin-gifsicle
-                  interlaced: false,
-                }
-              }
-            }
-          ],
+          type: 'asset/resource',
+          generator: {
+            filename: 'assets/images/[name][ext]'
+          }
         },
         {
           test: /\.scss$/,
-          use: extractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
+          use: [
+              isProd ? MiniCssExtractPlugin.loader : 'style-loader',
               {
                 loader: 'css-loader',
                 options: {
@@ -138,60 +95,50 @@ module.exports = env => {
               {
                 loader: "postcss-loader",
                 options: {
-                  ident: 'postcss',
-                  sourceMap: (!isProd) ? 'inline' : '',
-                  plugins: [ require('autoprefixer') ]
+                  sourceMap: !isProd,
+                  postcssOptions: {
+                    plugins: [ require('autoprefixer') ]
+                  }
                 }
               },
               {
                 loader: 'sass-loader',
                 options: {
                   sourceMap: (isProd) ? false : true,
-                  sourceMapContents: (isProd) ? false : true,
-                  outputStyle: (isProd) ? 'compressed' : 'compact',
-                  includePaths: ['./node_modules']
+                  sassOptions: {
+                    outputStyle: (isProd) ? 'compressed' : 'expanded',
+                    loadPaths: ['./node_modules']
+                  }
                 },
               }
             ]
-          })
         },
         {
           test: /\.(html)$/,
           use: {
-            loader: 'html-loader',
-            options: {
-              attrs: ["span:style","img:src"]
-            }
+            loader: 'html-loader'
           }
         },
       ]
     },
     resolve: {
       alias: {
-        'vue$': 'vue/dist/vue.esm.js'
+        'vue$': 'vue/dist/vue.esm-bundler.js'
       },
       extensions: ['*', '.js', '.vue', '.json']
     },
     plugins: [
       new VueLoaderPlugin(),
-      new cleanWebpackPlugin(['./docs']),
       new webpack.ProvidePlugin({
         $: "jquery",
         jQuery: "jquery"
       }),
-      new extractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: outputPaths.style
-      }),
-      new optimizeCssAssetsPlugin({
-        assetNameRegExp: /\.css$/g,
-        cssProcessor: require('cssnano'),
-        cssProcessorOptions: {
-          map : (isProd) ? null : {
-            inline : (isProd) ? false : true
-          }
-        }
       })
     ].concat(entryHtmlFiles),
-    optimization: { }
+    optimization: {
+      minimizer: ['...', new CssMinimizerPlugin()]
+    }
   }
 };

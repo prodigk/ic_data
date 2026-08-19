@@ -1,31 +1,42 @@
-// typescripts
+// javascript
 require('./assets/js/ui.js');
 
 // styles
 require('./assets/styles/catalog.scss');
 
 
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createApp } from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import Routes from './routes'
-const VueScrollTo = require('vue-scrollto')
 
-Vue.use(VueRouter);
-Vue.use(VueScrollTo);
-const router = new VueRouter({
-  routes : Routes
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes: Routes
 })
 
+const app = createApp(App)
 
-new Vue({
-  el: '#app',
-  render: h => h(App),
-  router : router
-});
-Vue.component('modal', {
-  template: '#modal-template'
+app.directive('scroll-to', {
+  mounted(el, binding) {
+    const handleClick = () => {
+      const target = document.querySelector(binding.value)
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+
+    el.__scrollToHandler = handleClick
+    el.addEventListener('click', handleClick)
+  },
+  unmounted(el) {
+    el.removeEventListener('click', el.__scrollToHandler)
+    delete el.__scrollToHandler
+  }
 })
+
+app.use(router)
+app.mount('#app')
 
 //텝메뉴 이벤트
 let tabItem = document.querySelectorAll('.list-tab>li .link-tab');
