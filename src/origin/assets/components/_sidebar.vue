@@ -7,7 +7,7 @@
     <div class="box-nav">
       <h2 class="title-navigation">네비게이터</h2>
       <ul class="nav-wrap">
-        <li class="on">
+        <li v-bind:class="{ on: selectedCategory === 0 }">
           <div class="link-nav" v-on:click="selCate(filterCate(0))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-all"></span>
@@ -16,7 +16,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 1 }">
           <div class="link-nav" v-on:click="selCate(filterCate(1))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-states"></span>
@@ -25,7 +25,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 2 }">
           <div class="link-nav" v-on:click="selCate(filterCate(2))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-scroll"></span>
@@ -34,7 +34,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 3 }">
           <div class="link-nav" v-on:click="selCate(filterCate(3))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-splash"></span>
@@ -43,7 +43,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 4 }">
           <div class="link-nav" v-on:click="selCate(filterCate(4))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-page"></span>
@@ -52,7 +52,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 5 }">
           <div class="link-nav" v-on:click="selCate(filterCate(5))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-flow"></span>
@@ -61,7 +61,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 6 }">
           <div class="link-nav" v-on:click="selCate(filterCate(6))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-banner"></span>
@@ -70,7 +70,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 7 }">
           <div class="link-nav" v-on:click="selCate(filterCate(7))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-animation"></span>
@@ -79,7 +79,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 8 }">
           <div class="link-nav" v-on:click="selCate(filterCate(8))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-component"></span>
@@ -88,7 +88,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 9 }">
           <div class="link-nav" v-on:click="selCate(filterCate(9))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-navigation"></span>
@@ -97,7 +97,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 10 }">
           <div class="link-nav" v-on:click="selCate(filterCate(10))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-reference"></span>
@@ -106,7 +106,7 @@
             </router-link>
           </div>
         </li>
-        <li>
+        <li v-bind:class="{ on: selectedCategory === 11 }">
           <div class="link-nav" v-on:click="selCate(filterCate(11))" v-scroll-to="'#wrapContainer'">
             <router-link to="/home">
               <span class="nav-icon icon-etc"></span>
@@ -181,6 +181,7 @@
       data : function(){
         return {
           toggleBar: false,
+          selectedCategory: 0,
           typeItem : itemList.typeList,
           toolItem : itemList.item,
           framerItem : itemList.item.framer,
@@ -199,6 +200,7 @@
           return this.toggleBar = e;
         },
         selCate : function(cate){
+          this.selectedCategory = cate;
           BUS.$emit('cateBus',cate)
         },
         selTags: function(tags){

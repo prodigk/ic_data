@@ -232,3 +232,108 @@ $tool-icon :
     }
   }
 }
+
+@media (max-width: 767px) {
+  .modal {
+    min-height:calc(100vh - 188px);
+    .modal-cont {
+      width:100%;
+      padding:54px 20px 40px;
+    }
+    .text-cate {
+      font-size:13px;
+      line-height:20px;
+    }
+    .title {
+      overflow:visible;
+      .title-item {
+        display:block;
+        margin:2px 0 10px;
+        font-size:28px;
+        line-height:34px;
+        letter-spacing:-.5px;
+      }
+      .wrap-tag {
+        display:flex;
+        flex-wrap:wrap;
+        gap:4px;
+        margin:0 0 16px;
+        > li { margin:0; }
+      }
+    }
+    .text-desc {
+      font-size:13px;
+      line-height:20px;
+    }
+    .text-type {
+      font-size:12px;
+      line-height:18px;
+    }
+    .detail-cont {
+      display:flex;
+      flex-direction:column;
+      gap:32px;
+      overflow:visible;
+      width:100%;
+      padding-top:28px;
+      .detail-phone {
+        float:none;
+        width:100%;
+        .bg-phone {
+          width:280px;
+          height:586px;
+          margin:0 auto;
+          padding-top:67px;
+          background-size:280px 586px;
+        }
+        .box-gif {
+          width:254px;
+          height:451px;
+        }
+      }
+      .detail-code {
+        float:none;
+        overflow:hidden;
+        width:100%;
+        border-radius:12px;
+        iframe {
+          width:100% !important;
+          min-height:620px;
+        }
+      }
+      .link-example {
+        overflow:hidden;
+        margin-top:18px;
+        padding:12px 16px;
+        border:1px solid $gray20;
+        border-radius:10px;
+        font-size:11px;
+        line-height:18px;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+    }
+    .link-close {
+      position:absolute;
+      top:0;
+      left:0;
+      display:flex;
+      align-items:center;
+      width:auto;
+      height:40px;
+      padding:0;
+      text-align:left;
+      &:after {
+        margin-left:8px;
+        color:$gray80;
+        font-size:13px;
+        content:'Back to catalog';
+      }
+      > img {
+        width:38px;
+        height:auto;
+      }
+      &:hover > img { width:38px; }
+    }
+  }
+}

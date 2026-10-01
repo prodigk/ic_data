@@ -17,7 +17,7 @@
       </ul>
       <div id="boxSearch" class="box-search" v-bind:class="{ 'on-focus': isFocus }">
         <span class="icon-search"></span>
-        <input type="text" id="searchInp" class="input-search" v-on:focus="isFocus = onFocus()" v-on:blur="isFocus = onBlur()" placeholder="Search Script" v-model="searchItem">
+        <input type="text" id="searchInp" class="input-search" aria-label="인터랙션 검색" v-on:focus="isFocus = onFocus()" v-on:blur="isFocus = onBlur()" placeholder="Search interactions" v-model="searchItem">
         <button type="button" class="btn-del" v-on:click="searchDel()">삭제</button>
       </div>
       <!-- Framer 영역 -->
@@ -36,7 +36,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
@@ -64,7 +64,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
@@ -92,7 +92,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
@@ -120,7 +120,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
@@ -148,7 +148,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
@@ -176,7 +176,7 @@
               <span class="box-detail">VIEW MORE</span>
             </a>
             <span class="text-cate">{{ typeItem[tools.type] }}</span>
-            <strong class="title-item">{{ tools.title }}</strong>
+            <button type="button" class="title-item" v-on:click="dataTarget(tools)">{{ tools.title }}</button>
             <p class="text-desc">{{ tools.desc }}</p>
             <p class="text-type">{{ tools.used }}</p>
             <a v-bind:href="tools.url" class="link-example" target="_blank">{{ tools.url }}</a>
