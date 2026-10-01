@@ -1,1 +1,1 @@
-import $ from 'jQuery';
+import $ from 'jquery';

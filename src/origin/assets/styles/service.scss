@@ -243,19 +243,24 @@ $nav-height: 240;
 
 //본문
 .section-content {
+  position:relative;
   width:100%;
-  padding-left:$nav-height + px;
   box-sizing:border-box;
-  padding:163px 0 250px;
+  padding:163px 0 250px $nav-height + px;
   .heading-content {
     @include screen-out;
   }
   .article-content {
     position:relative;
-    width:1040px;
+    width:100%;
+    max-width:1120px;
+    box-sizing:border-box;
     margin:0 auto;
-    padding-left:80px;
+    padding:0 32px;
   }
+}
+.side__close .section-content {
+  padding-left:72px;
 }
 #pageUpdate,#pageAbout,#pageDocs,.view-item,.box-search {
   animation-duration: .15s;
@@ -454,7 +459,7 @@ $nav-height: 240;
   }
 }
 .list-item {
-  width:1040px;
+  width:100%;
   font-size:0;
   line-height:0;
   > .item {
@@ -477,6 +482,14 @@ $nav-height: 240;
     display:none;
     padding:40px 0 0 20px;
     @include head-lv3;
+  }
+  .link-thumb {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    width:190px;
+    height:397px;
   }
   .bg-phone{
     position:absolute;
@@ -604,6 +617,7 @@ $view-size__height:210px;
     }
 
     .link-thumb {
+      position:relative;
       display:block;
       width:$view-size__width;
       height:$view-size__height;

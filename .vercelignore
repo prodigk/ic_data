@@ -1,0 +1,9 @@
+.git/
+node_modules/
+docs/
+images/*
+!images/photo.jpg
+!images/photo_s.jpg
+!images/move.gif
+!images/about01.png
+src/origin/*.psd

@@ -21,8 +21,6 @@ const outputPaths = {
   style: 'assets/styles/style.css',
   images: path.resolve(rootPaths.output, 'assets/images')
 };
-// cdn paths
-const cdnPath = 'https://kimhyunwoooo.github.io/guide/docs/';
 
 // entry htmlList(htmlWebpackPlugin) - 루트 폴더 내 모든 *.html을 가져오도록 설정
 let entryHtmlFiles = (() => {
@@ -50,7 +48,7 @@ module.exports = (env = {}) => {
     devtool: isProd ? false : 'inline-source-map',
     output: {
       path: rootPaths.output,
-      publicPath: (isProd) ? cdnPath : '/',
+      publicPath: '/',
       filename: outputPaths.modules + `/[name].js`,
       clean: true,
     },
