@@ -7,14 +7,18 @@
   "private": true,
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack serve --mode development --env NODE_ENV=dev --open",
-    "build": "webpack --mode production --env NODE_ENV=prod && node scripts/copy-assets.cjs"
+    "dev": "node scripts/dev-server.mjs",
+    "build": "webpack --mode production --env NODE_ENV=prod && node scripts/copy-assets.cjs",
+    "audit": "npm audit",
+    "test": "node --test"
   },
-  "engines": { "node": "24.x" },
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "jquery": "^3.7.1",
     "mitt": "^3.0.1",
-    "vue": "^3.5.41",
+    "vue": "^3.5.44",
     "vue-router": "^4.6.4"
   },
   "browserslist": [
@@ -25,7 +29,7 @@
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
-    "@vue/compiler-sfc": "^3.5.41",
+    "@vue/compiler-sfc": "^3.5.44",
     "autoprefixer": "^10.5.4",
     "babel-loader": "^10.1.1",
     "css-loader": "^7.1.4",
@@ -33,15 +37,17 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.8",
     "mini-css-extract-plugin": "^2.10.2",
+    "open": "^11.0.4",
     "postcss": "^8.5.26",
     "postcss-loader": "^8.2.1",
     "sass": "^1.102.0",
     "sass-loader": "^17.0.0",
+    "sirv": "^3.0.2",
     "style-loader": "^4.0.0",
     "vue-loader": "^17.4.2",
     "webpack": "^5.109.2",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^6.0.0"
+    "webpack-dev-middleware": "^8.5.0"
   },
   "main": "webpack.config.js",
   "repository": {
